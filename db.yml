@@ -1,0 +1,11 @@
+services:
+  db:
+    image: ${DB_IMAGE}
+    container_name: ${DB_CONTAINER}
+    ports:
+      - "${DB_EXPORT}:${DB_INPORT}"
+    environment:
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+        
