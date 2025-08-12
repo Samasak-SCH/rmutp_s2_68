@@ -3,7 +3,11 @@
 Somsak Tubthongdee
 
 ## Using it
+```
+```
+## Prisma
+### First time
 ```bash
-cp env.simple .env
-docker compose -f db.yml up -d
+npx prisma generate
+npx prisma db push
 ```
