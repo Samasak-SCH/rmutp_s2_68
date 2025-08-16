@@ -4,13 +4,13 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  username String
+  id       String @id @default(uuid())
+  username String @unique
   password String
   cardId   String @unique
   mobile   String @unique
