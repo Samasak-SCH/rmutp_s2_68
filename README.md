@@ -1,9 +1,9 @@
-# Create new branch and new workshop with python prisma
+# Create new 2-create-prisma-orm
 
 Somsak Tubthongdee
+16/08/2025
 
 ## Using it
 ```bash
-cp env.simple .env
-docker compose -f db.yml up -d
+git checkout -b "2-create-prisma-orm" "1-create-postgres-db"
 ```
