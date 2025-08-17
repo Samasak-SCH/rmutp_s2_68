@@ -12,6 +12,6 @@ model Profile {
   id       String @id @default(uuid())
   username String @unique
   password String
-  cardId   String @unique
-  mobile   String @unique
+  cardId   String @unique @db.VarChar(13)
+  mobile   String @unique @db.VarChar(13)
 }
