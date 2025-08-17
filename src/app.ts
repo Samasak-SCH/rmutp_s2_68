@@ -2,7 +2,6 @@ import {Hono} from "hono";
 
 const app = new Hono();
 
-// operation
-//CRUD
+app.get("/", (c) => c.text("Hello world"));
 
 export default app;
