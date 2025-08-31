@@ -12,6 +12,6 @@
         ".env",
         "db.yml",
         "prisma",
-        "/generated/prisma",
+        "/generated/prisma"
     ]
 }
