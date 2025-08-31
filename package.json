@@ -11,6 +11,7 @@
     "typescript": "^5.9.2"
   },
   "scripts": {
-    "build": "tsc && node dist/server.js"
+    "build": "tsc",
+    "dev": "npm run build && node dist/server.js"
   }
 }
