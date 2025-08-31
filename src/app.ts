@@ -18,4 +18,29 @@ app.get("/Profile", async (c) => {
     },200);
 });
 
+app.get("/Profile/uuidSearch", async (c) => {
+
+    const uuid = "de2170c8-3ca8-4907-82a7-e634953a1857";
+
+    const profile = await prisma.profile.findUnique({
+        where: {
+            id: uuid,
+        },
+    });
+
+    if (profile) {
+
+        return c.json({
+            message: "UUID was found",
+            data: profile
+        }, 200);
+    } else {
+
+        return c.json({
+            message: "UUID was not found",
+            data: null
+        }, 404);
+    }
+});
+
 export default app;
