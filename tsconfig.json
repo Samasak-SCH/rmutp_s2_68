@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "rootDir": "src",
+        "target": "es2020",
+        "module": "commonjs",
+        "esModuleInterop": true
+    },
+
+    "exclude": [
+        "node_modules",
+        ".env",
+        "db.yml",
+        "prisma",
+        "/generated/prisma",
+        "src"
+    ]
+}
