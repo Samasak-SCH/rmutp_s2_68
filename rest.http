@@ -1,0 +1,4 @@
+#REST API
+##Get all profiles
+
+GET http://localhost:3000/profile
