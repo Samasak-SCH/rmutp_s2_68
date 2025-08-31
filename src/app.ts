@@ -7,11 +7,11 @@ const app = new Hono();
 
 app.get("/", (c) => c.text("Hello world.....My name's Somsak Tubthongdee --> Lab 4 on 31/08/2568"));
 
-//Get data from db
-const profiles = prisma.profile.findMany();
+app.get("/Profile", async (c) => {
+    //Get data from db
+    const profiles = await prisma.profile.findMany();
 
-//Response
-app.get("/Profile", (c) => {
+    //Response
     return c.json({
         message:"get data completed",
         data: profiles
