@@ -13,6 +13,5 @@
         "db.yml",
         "prisma",
         "/generated/prisma",
-        "src"
     ]
 }
