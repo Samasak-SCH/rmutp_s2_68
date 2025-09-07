@@ -2,6 +2,15 @@ import {Hono} from "hono";
 import { PrismaClient } from "@prisma/client";
 import * as bcrypt from "bcrypt";
 import { Md5 } from "md5-typescript";
+// Symmetric Encryption
+import * as CryptoJS from 'crypto-js';
+
+// dot env for hiding Secret Key variable
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+// Use environment variables from a .env file
+const SECRET_KEY = process.env.SECRET_KEY as string;
 
 const prisma = new PrismaClient();
 
@@ -48,20 +57,28 @@ app.get("/Profile/uuidSearch", async (c) => {
 app.post("/Profile", async (c) => {
     //logic to create a new profile
     const body = await c.req.json();
+    const { username, password, mobile, cardId } = body;
     // console.log('input of profile ', body);
     // console.log('body.password(original) ', body.password);
 
     //encode password
-    const passwordHash = await bcrypt.hash(body.password, 13);
+    //const passwordHash = await bcrypt.hash(body.password, 13);
+    //Encode mobile and cardId by AES
+    const encryptedpassword = CryptoJS.AES.encrypt(password, SECRET_KEY).toString();
+    const encryptedmobile = CryptoJS.AES.encrypt(mobile, SECRET_KEY).toString();
+    const encryptedcardId= CryptoJS.AES.encrypt(cardId, SECRET_KEY).toString();
     // console.log('hash.password(after) ', passwordHash);
-    body.password = passwordHash;
+    //body.password = passwordHash;
+    body.password = encryptedpassword;
     // console.log('body.password(replace) ', body);
 
     //encode mobile
-    body.mobile = Md5.init(body.mobile);
-
+    //body.mobile = Md5.init(body.mobile);
+    body.mobile = encryptedmobile;
+    
     //encode cardId
-    body.cardId = Md5.init(body.cardId);
+    //body.cardId = Md5.init(body.cardId);
+    body.cardId = encryptedcardId;
 
     //data before save
     console.log('data before save ', body);
@@ -99,14 +116,28 @@ app.get("/Profile/:id", async (c) => {
     console.log('id ', id);
     const profile = await prisma.profile.findFirstOrThrow({
         where: {
+            
             id: id
         }
     });
-    delete profile.password;
+    //delete profile.password;
+
+    const decryptedpassword = CryptoJS.AES.decrypt(profile.password, SECRET_KEY).toString(CryptoJS.enc.Utf8);
+    const decryptedmobile = CryptoJS.AES.decrypt(profile.mobile, SECRET_KEY).toString(CryptoJS.enc.Utf8);
+    const decryptedcardId= CryptoJS.AES.decrypt(profile.cardId, SECRET_KEY).toString(CryptoJS.enc.Utf8);
+
+    // Create a new object with the decrypted data and without the password
+    const decryptedProfile = {
+            id: profile.id,
+            username: profile.username,
+            password: decryptedpassword,
+            mobile: decryptedmobile,
+            cardId: decryptedcardId,
+    };
 
     return c.json({
         message: "get data completed",
-        data: profile
+        data: decryptedProfile
     }, 200);
 });
 
