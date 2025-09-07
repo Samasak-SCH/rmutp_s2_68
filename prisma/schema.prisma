@@ -17,8 +17,8 @@ datasource db {
 model Profile {
   id       String @id @default(uuid())
   username String @unique
-  password String
+  password String @db.VarChar(256)
   mobile   String @unique @db.VarChar(10)
   cardId   String @unique @db.VarChar(13)
-  status   Boolean   @default(false) // Add this line
+  status   Boolean   @default(false)
 }
