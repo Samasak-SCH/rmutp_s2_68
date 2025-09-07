@@ -20,4 +20,5 @@ model Profile {
   password String
   mobile   String @unique @db.VarChar(10)
   cardId   String @unique @db.VarChar(13)
+  status   Boolean   @default(false) // Add this line
 }
