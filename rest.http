@@ -2,8 +2,6 @@
 GET http://localhost:3000/Profile
 
 ### Create New Profile
-### curl -X POST http://localhost:3000/Profile
-### Create New Profile
 POST http://localhost:3000/Profile
 Content-Type: application/json
 
@@ -17,7 +15,7 @@ Content-Type: application/json
 ### Search profile by UUID
 GET http://localhost:3000/Profile/uuidSearch
 
-### Get some profile by id
+### Get some profile by Profile/:id
 GET http://localhost:3000/Profile/de2170c8-3ca8-4907-82a7-e634953a1857
 
 ### Login
