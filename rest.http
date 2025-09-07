@@ -21,7 +21,7 @@ GET http://localhost:3000/Profile/uuidSearch
 GET http://localhost:3000/Profile/de2170c8-3ca8-4907-82a7-e634953a1857
 
 ### Login
-POST http://localhost:3000/login
+POST http://localhost:3000/Login
 Content-Type: application/json
 
 {

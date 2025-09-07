@@ -110,7 +110,7 @@ app.get("/Profile/:id", async (c) => {
     }, 200);
 });
 
-app.post("/login", async (c) => {
+app.post("/Login", async (c) => {
     const body = await c.req.json();
     console.log('input of login ', body);
 
