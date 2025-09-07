@@ -1,5 +1,30 @@
 ### Get all profiles
 GET http://localhost:3000/Profile
 
+### Create New Profile
+### curl -X POST http://localhost:3000/Profile
+### Create New Profile
+POST http://localhost:3000/Profile
+Content-Type: application/json
+
+{
+    "username": "Chalida",
+    "password": "1234",
+    "mobile": "0916985133",
+    "cardId": "1219900093638"
+}
+
 ### Search profile by UUID
 GET http://localhost:3000/Profile/uuidSearch
+
+### Get some profile by id
+GET http://localhost:3000/Profile/de2170c8-3ca8-4907-82a7-e634953a1857
+
+### Login
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username": "Chalida",
+    "password": "1234"
+}
