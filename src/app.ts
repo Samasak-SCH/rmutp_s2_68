@@ -4,11 +4,10 @@ import * as bcrypt from "bcrypt";
 import { Md5 } from "md5-typescript";
 // Symmetric Encryption
 import * as CryptoJS from 'crypto-js';
-import {encode,decode} from "./security";
+import security from "./security";
 
 // dot env for hiding Secret Key variable
 import * as dotenv from 'dotenv';
-import security from "./security";
 dotenv.config();
 
 // Use environment variables from a .env file
@@ -174,14 +173,13 @@ app.post("/Login", async (c) => {
 app.post("/Profile/encode", async (c) => {
     return c.json({
         message: "encode completed",
-        function:encode()
+        function:security.encode(),
     });
 });
 app.post("/Profile/decode", async (c) => {
     return c.json({
         message: "decode completed",
-        function:decode()
-
+        function:security.decode(),
     });
 });
 
