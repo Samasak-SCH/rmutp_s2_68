@@ -110,6 +110,7 @@ app.post("/Profile", async (c) => {
     });
 });
 
+
 app.get("/Profile/:id", async (c) => {
     //get some data from db
     const id = c.req.param('id');
@@ -163,6 +164,17 @@ app.post("/Login", async (c) => {
         data: isMatch,
         user: user?.password,
         hash: userPassword
+    });
+});
+
+app.post("/Profile/encode", async (c) => {
+    return c.json({
+        message: "encode completed",
+    });
+});
+app.post("/Profile/decode", async (c) => {
+    return c.json({
+        message: "decode completed",
     });
 });
 
