@@ -26,3 +26,9 @@ Content-Type: application/json
     "username": "Chalida",
     "password": "U2FsdGVkX1/5azmD1ag6zkYlKIWModzBTNZCiqefHF8="
 }
+
+### New encode by Crypto on 14-09-2025
+GET http://localhost:3000/decode
+
+### New decode by Crypto on 14-09-2025
+GET http://localhost:3000/decode
