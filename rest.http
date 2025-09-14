@@ -28,7 +28,7 @@ Content-Type: application/json
 }
 
 ### New encode by Crypto on 14-09-2025
-GET http://localhost:3000/decode
+POST http://localhost:3000/Profile/encode
 
 ### New decode by Crypto on 14-09-2025
-GET http://localhost:3000/decode
+POST http://localhost:3000/Profile/decode
