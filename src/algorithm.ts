@@ -1,6 +1,4 @@
 import * as crypto from "crypto";// import all functions in crypto lib
-import * as fs from "fs";// import File system lib
-import * as dotenv from 'dotenv';// import dotenv
 
 /* Key Component
  * algorithm
@@ -8,30 +6,10 @@ import * as dotenv from 'dotenv';// import dotenv
  * iv
  */
 
-// Function to write keys to the .env file
-const writeKeysToEnv = (key: Buffer, iv: Buffer) => {
-    const envContent = `SECRET_KEY=${key.toString('hex')}\nIV=${iv.toString('hex')}`;
-    fs.writeFileSync('.env', envContent, { flag: 'w' });
-    console.log("Keys have been written to the .env file.");
-};
-
 const algorithm = "aes-256-cbc";
+const key = crypto.randomBytes(32); // Random byte Key must be 32 only
+const iv = crypto.randomBytes(16);
 
-// Check if keys exist in .env; if not, generate new ones and save them
-let key: Buffer;
-let iv: Buffer;
-
-if (process.env.SECRET_KEY && process.env.IV) {
-    key = Buffer.from(process.env.SECRET_KEY, 'hex');
-    iv = Buffer.from(process.env.IV, 'hex');
-    console.log("Using keys from .env file.");
-} else {
-    // Generate new keys
-    key = crypto.randomBytes(32);
-    iv = crypto.randomBytes(16);
-    writeKeysToEnv(key, iv);
-    console.log("Generated new keys and wrote them to .env.");
-}
 const password = "MyVerySecurePassword";
 
 console.log("algorithm ", algorithm);
