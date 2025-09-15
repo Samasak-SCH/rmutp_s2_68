@@ -7,10 +7,10 @@ import * as crypto from "crypto";// import all functions in crypto lib
  */
 
 const algorithm = "aes-256-cbc";
-const key = crypto.randomBytes(32); // Random byte Key must be 32 only
-const iv = crypto.randomBytes(16);
-
 const password = "MyVerySecurePassword";
+
+const key = crypto.randomBytes(32); // Random byte Key must be 32 only
+const iv = crypto.randomBytes(16); // Random byte Key must be 16 only
 
 console.log("algorithm ", algorithm);
 console.log("key ", key.toString('hex'),Buffer.from(key),key.toString('hex').length); // Show key's hex value in the string value+length and use Buffer to protect timeout when encode/decode.
