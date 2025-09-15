@@ -28,7 +28,27 @@ Content-Type: application/json
 }
 
 ### New encode by Crypto on 14-09-2025
-POST http://localhost:3000/Profile/encode
+POST http://localhost:3000/encode
 
 ### New decode by Crypto on 14-09-2025
-POST http://localhost:3000/Profile/decode
+POST http://localhost:3000/decode
+
+### Create New Encode with New encode by Crypto on 14-09-2025
+POST http://localhost:3000/encode
+Content-Type: application/json
+
+{
+    "username": "Eakkapob",
+    "password": "123456",
+    "mobile": "0916985132",
+    "cardId": "1219900093637"
+}
+
+### Create New Decode with New encode by Crypto on 14-09-2025
+POST http://localhost:3000/decode
+Content-Type: application/json
+
+{
+    "encryptedPassword": "+Zezqcr5Yvi68q6DPmsdsA==",
+    "encryptedCardID": "lgelB7kBpIGzxX0WNuJNJQ=="
+}
