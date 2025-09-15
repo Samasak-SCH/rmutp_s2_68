@@ -1,10 +1,9 @@
 import {Hono} from "hono";
 import { PrismaClient } from "@prisma/client";
 import * as bcrypt from "bcrypt";
-import { Md5 } from "md5-typescript";
 // Symmetric Encryption
 import * as CryptoJS from 'crypto-js';
-import security from "./security";
+import { encode, decode } from './security'; // import ฟังก์ชันจาก security.ts
 
 // dot env for hiding Secret Key variable
 import * as dotenv from 'dotenv';
@@ -12,6 +11,8 @@ dotenv.config();
 
 // Use environment variables from a .env file
 const SECRET_KEY = process.env.SECRET_KEY as string;
+const ENCRYP_PASS = process.env.KEY_PASS as string;
+const ENCRYP_ID = process.env.KEY_ID as string;
 
 const prisma = new PrismaClient();
 
@@ -170,16 +171,65 @@ app.post("/Login", async (c) => {
 
 // New encode-decode by Crypto on 14-09-2025
 
-app.post("/Profile/encode", async (c) => {
+app.post("/encode", async (c) => {
+    //logic to create a new profile
+    const body = await c.req.json();
+    const { username, password, mobile, cardId } = body;
+
+    // Encode Password & cardID
+    const encryptedPass = encode(password);
+    const encryptedCardID = encode(cardId);
+    
+    body.username = username;
+    body.password = encryptedPass;
+    body.mobile = mobile;
+    body.cardId = encryptedCardID;
+
+    body.status= false;
+    const result = await prisma.profile.create({
+        data: body
+    })
+    .then(data => { 
+        delete data.password;
+        console.log('create profile completed', data);
+        return data;
+    })
+    .catch(err => {
+        console.log(`create profile failed `, JSON.stringify(err?.message));
+        // switch case error message
+        return "please recheck username, mobile or cardId";
+    });
+
     return c.json({
-        message: "encode completed",
-        function:security.encode(),
+        message: "Encode and create profile completed",
+        data: result,
+        encrypted_password: encryptedPass,
+        encrypted_card_id: encryptedCardID
     });
 });
-app.post("/Profile/decode", async (c) => {
+
+app.post("/decode", async (c) => {
+    //get some data from db
+    const id = c.req.param('id');
+    console.log('id ', id);
+    const profile = await prisma.profile.findFirstOrThrow({
+        where: {
+            
+            id: id
+        }
+    });
+
+    const body = await c.req.json();
+    const { encryptedPassword, encryptedCardID } = body;
+
+    // Decode Password and CardID
+    const decryptedPass = decode(encryptedPassword);
+    const decryptedCardID = decode(encryptedCardID);
+
     return c.json({
-        message: "decode completed",
-        function:security.decode(),
+        message: "Decode completed",
+        decrypted_password: decryptedPass,
+        decrypted_card_id: decryptedCardID
     });
 });
 
