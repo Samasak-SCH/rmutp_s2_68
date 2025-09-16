@@ -16,7 +16,7 @@ Content-Type: application/json
 GET http://localhost:3000/Profile/uuidSearch
 
 ### Get some profile by Profile/:id
-GET http://localhost:3000/Profile/2ca710fb-b8e8-4386-ad1f-789f070e7056
+GET http://localhost:3000/Profile/a0652305-3519-4dfc-86a8-f3de40aea65b
 
 ### Login
 POST http://localhost:3000/Login
@@ -44,11 +44,11 @@ Content-Type: application/json
     "cardId": "1219900093637"
 }
 
-### Create New Decode with New encode by Crypto on 14-09-2025
+### Create New Decode with New encode by Crypto on 14-09-2025 (For POST)
 POST http://localhost:3000/decode
 Content-Type: application/json
 
 {
-    "encryptedPassword": "+Zezqcr5Yvi68q6DPmsdsA==",
-    "encryptedCardID": "lgelB7kBpIGzxX0WNuJNJQ=="
+    "encryptedPassword": "kXVggANr63nWcwlXaM6n5A==",
+    "encryptedCardID": "ILRsRo0bRIIOmuA3mlW/9g=="
 }
