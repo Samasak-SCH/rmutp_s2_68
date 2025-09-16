@@ -11,8 +11,6 @@ dotenv.config();
 
 // Use environment variables from a .env file
 const SECRET_KEY = process.env.SECRET_KEY as string;
-const ENCRYP_PASS = process.env.KEY_PASS as string;
-const ENCRYP_ID = process.env.KEY_ID as string;
 
 const prisma = new PrismaClient();
 
@@ -190,7 +188,8 @@ app.post("/encode", async (c) => {
         data: body
     })
     .then(data => { 
-        delete data.password;
+        delete data.password; // Not show password
+        delete data.cardId; // Not show cardId
         console.log('create profile completed', data);
         return data;
     })
@@ -209,17 +208,7 @@ app.post("/encode", async (c) => {
 });
 
 app.post("/decode", async (c) => {
-    //get some data from db
-    const id = c.req.param('id');
-    console.log('id ', id);
-    const profile = await prisma.profile.findFirstOrThrow({
-        where: {
-            
-            id: id
-        }
-    });
-
-    const body = await c.req.json();
+    const body = await c.req.json(); // For POST if you want
     const { encryptedPassword, encryptedCardID } = body;
 
     // Decode Password and CardID
