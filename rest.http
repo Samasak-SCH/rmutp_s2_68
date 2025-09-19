@@ -52,3 +52,6 @@ Content-Type: application/json
     "encryptedPassword": "kXVggANr63nWcwlXaM6n5A==",
     "encryptedCardID": "ILRsRo0bRIIOmuA3mlW/9g=="
 }
+
+### Create New Decode with New encode by Crypto on 14-09-2025 (For GET)
+GET http://localhost:3000/decode/775e35b9-524d-4eda-aa03-63704bb8e0c2

@@ -207,6 +207,7 @@ app.post("/encode", async (c) => {
     });
 });
 
+/*
 app.post("/decode", async (c) => {
     const body = await c.req.json(); // For POST if you want
     const { encryptedPassword, encryptedCardID } = body;
@@ -220,6 +221,48 @@ app.post("/decode", async (c) => {
         decrypted_password: decryptedPass,
         decrypted_card_id: decryptedCardID
     });
+});
+*/
+
+app.get("/decode/:id", async (c) => {
+    try {
+        const id = c.req.param('id');
+        console.log('id ', id);
+
+        const profile = await prisma.profile.findFirstOrThrow({
+            where: {
+                id: id
+            }
+        });
+
+        // Encrypt
+        const encryptedPassword = profile.password; 
+        const encryptedCardID = profile.cardId;
+        
+        // Check Data
+        if (!encryptedPassword || !encryptedCardID) {
+            return c.json({
+                message: "Missing encrypted data in database record."
+            }, 404);
+        }
+
+        // Decode Password and CardID
+        const decryptedPass = decode(encryptedPassword);
+        const decryptedCardID = decode(encryptedCardID);
+
+        return c.json({
+            message: "The ID was found in the database record and successfully decrypted",
+            decrypted_password: decryptedPass,
+            decrypted_card_id: decryptedCardID
+        });
+
+    } catch (e) {
+        console.error('Decryption failed:', e);
+        return c.json({
+            message: "Decryption failed. Please check your data.",
+            error: e.message
+        }, 500);
+    }
 });
 
 export default app;
